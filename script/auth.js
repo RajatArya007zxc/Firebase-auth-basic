@@ -1,4 +1,13 @@
 
+db.collection('').get().then(snapshot=>{
+    setUPGuide(snapshot.doc)
+})
+
+
+
+
+
+
 /// Listen for auth status change
 
 auth.onAuthStateChanged(user=>{
