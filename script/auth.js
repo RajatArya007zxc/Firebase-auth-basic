@@ -1,10 +1,4 @@
 
-db.collection('').get().then(snapshot=>{
-    setUPGuide(snapshot.doc)
-})
-
-
-
 
 
 
@@ -14,13 +8,18 @@ auth.onAuthStateChanged(user=>{
    //console.log(user) // check the user is still logged in or not
     
    if(user){
-       console.log("logged In:" + user);
-   }
+    db.collection('').get().then(snapshot=>{
+        setUPGuide(snapshot.doc) // index.js
+        
+    }) }
    else{
-       console.log("log out");
-   }
+   setUPGuide([]);  
+}
 
 })
+
+///when user logging otherwise dont show the data from the store (normal store);
+
 
 
 
