@@ -11,11 +11,19 @@ const setupUI=(user)=>{
   if(user){
 
     //account info
-    const html=`
-    <div>Logged In AS ${user.email}</div>
-    `;
+db.collection('users').doc(user.uid).get().then(doc=>{
+
+  const html=`
+  <div>Logged In AS ${user.email}</div><br>
+
+  <div>${doc.data().bio}</div>
+
+  `;
 accountDetails.innerHTML=html;
 
+})
+
+    
 
     //toggle ui element
     loggedInLinks.forEach(item=>item.style.display='block')

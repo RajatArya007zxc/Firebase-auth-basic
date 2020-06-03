@@ -2,9 +2,11 @@
 auth.onAuthStateChanged(user => {
     if (user) {
       console.log('user logged in: ', user);
-      db.collection('guides').onSnapshot(snapshot => {
+      db.collection('guides').onSnapshot (snapshot => {
         setupGuides(snapshot.docs);
         setupUI(user);
+      },error=>{
+        console.log(error.message);
       });
     } else {
      // console.log('user logged out');
@@ -57,11 +59,17 @@ e.preventDefault();
   
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
+      return db.collection('users').doc(cred.user.uid).set({
+        bio:signupForm['signup-bio'].value
+      })
+      
       // close the signup modal & reset form
+      
+    }).then(()=>{
       const modal = document.querySelector('#modal-signup');
       M.Modal.getInstance(modal).close();
-      signupForm.reset();
-    });
+      signupForm.reset(); 
+    })
   });
   
   // logout
