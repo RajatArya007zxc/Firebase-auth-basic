@@ -4,15 +4,28 @@ const guideList = document.querySelector('.guides');
 
 const loggedOutLink=document.querySelectorAll('.logged-out');
 const loggedInLinks=document.querySelectorAll('.logged-in');
-
+const accountDetails= document.querySelector('.account-details');
 //setup Ui
 
 const setupUI=(user)=>{
   if(user){
+
+    //account info
+    const html=`
+    <div>Logged In AS ${user.email}</div>
+    `;
+accountDetails.innerHTML=html;
+
+
+    //toggle ui element
     loggedInLinks.forEach(item=>item.style.display='block')
      loggedOutLink.forEach(item=>item.style.display='none')
   }
   else{
+    //hide account info 
+    accountDetails.innerHTML='';
+
+
     loggedInLinks.forEach(item=>item.style.display='none')
     loggedOutLink.forEach(item=>item.style.display='block')
 
