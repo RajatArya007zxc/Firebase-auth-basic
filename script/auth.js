@@ -2,7 +2,7 @@
 auth.onAuthStateChanged(user => {
     if (user) {
       console.log('user logged in: ', user);
-      db.collection('guides').get().then(snapshot => {
+      db.collection('guides').onSnapshot(snapshot => {
         setupGuides(snapshot.docs);
         setupUI(user);
       });
