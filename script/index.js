@@ -5,10 +5,17 @@ const guideList = document.querySelector('.guides');
 const loggedOutLink=document.querySelectorAll('.logged-out');
 const loggedInLinks=document.querySelectorAll('.logged-in');
 const accountDetails= document.querySelector('.account-details');
+const adminItems= document.querySelectorAll('.admin');
+
 //setup Ui
 
 const setupUI=(user)=>{
   if(user){
+ 
+    if(user.admin){
+      adminItems.forEach(item=>item.style.display='block');
+    }
+
 
     //account info
 db.collection('users').doc(user.uid).get().then(doc=>{
@@ -17,6 +24,7 @@ db.collection('users').doc(user.uid).get().then(doc=>{
   <div>Logged In AS ${user.email}</div><br>
 
   <div>${doc.data().bio}</div>
+  <div class="pink-text">${user.admin?'Admin':''}</div>
 
   `;
 accountDetails.innerHTML=html;
@@ -30,6 +38,11 @@ accountDetails.innerHTML=html;
      loggedOutLink.forEach(item=>item.style.display='none')
   }
   else{
+
+    adminItems.forEach(item=>item.style.display='none')
+  
+
+
     //hide account info 
     accountDetails.innerHTML='';
 
